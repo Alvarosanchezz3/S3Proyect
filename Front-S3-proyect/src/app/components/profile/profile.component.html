@@ -1,0 +1,18 @@
+<app-header></app-header>
+<div class="content">
+    <div class="container">
+        <div class="user-card">
+            <div class="info">
+                <div class="user-image-container">
+                    <img [src]="imageUrl" alt="user image" class="user-image" />
+                </div>
+                <p class="id">{{ userData.id }}</p>
+                <h2>{{ userData.name }}</h2>
+                <p>{{ userData.email }}</p>
+                <p>{{ userData.username }}</p>
+                <p>{{ userData.age }} years</p>
+                <p> {{ userData.role }} </p>
+            </div>
+        </div>
+    </div>
+</div>

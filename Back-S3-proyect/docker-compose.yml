@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: S3ProyectDb
+    container_name: MySQL_S3Proyect
+    volumes:
+      - mysql-volume:/var/lib/mysql
+
+  my-app:
+    build: .
+    image: s3proyect-img:v1
+    environment:
+      ACCESS_KEY_ID: ${ACCESS_KEY_ID}
+      SECRET_KEY: ${SECRET_KEY}
+    ports:
+      - "9090:9090"
+    container_name: S3Proyect_container
+    depends_on:
+      - db
+
+volumes:
+  mysql-volume:

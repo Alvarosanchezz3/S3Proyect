@@ -1,0 +1,142 @@
+/* Estilos para el contenido */
+.content {
+    padding: 50px;
+    margin-top: 100px;
+  }
+  
+  /* Estilos para el contenedor principal */
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  /* Estilos para cada tarjeta de usuario */
+  .user-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20%; 
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+  }
+  
+  .info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+  
+  .user-image-container {
+    width: 120px; 
+    height: 120px; 
+    display: flex;
+    margin-bottom: 10px; 
+  }
+
+  .user-image {
+      width: 100%;  
+      object-fit: cover; 
+      border-radius: 50%; 
+  }
+
+ 
+  .info .id {
+    padding: 5px 12px;
+    border-radius: 100%;
+    background-color: #e8e4e4;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  /* Estilos para el título */
+  .user-card h2 {
+    margin-top: 0;
+  }
+  
+  /* Estilos para la imagen del usuario */
+  .user-card i {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para el resto de la información del usuario */
+  .user-card p {
+    margin: 5px 0;
+  }
+  
+  .btn-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+  }
+  
+  .btn-container button {
+    padding: 7px 14px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btn-update {
+    background-color: rgb(193, 202, 194);
+    color: rgb(54, 49, 49);
+    font-weight: bold;
+  }
+  
+  .btn-update:hover {
+    background-color: rgb(164, 171, 165);
+  }
+  
+  .btn-container .profile a i {
+    color: rgb(49, 48, 48);
+    font-size: 18px;
+  }
+  
+  .btn-container .profile:hover {
+    background-color: rgb(201, 207, 202);
+  }
+  
+  .btn-delete {
+    background-color: rgb(237, 42, 42);
+    color: #fff;
+    font-weight: 500;
+  }
+  
+  .btn-delete:hover {
+    background-color: rgb(194, 45, 45);
+  }
+  
+  
+  /* Estilos para hacer responsive */
+  @media screen and (max-width: 1300px) {
+      .user-card {
+        width: calc(25% - 20px); /* Cambia el ancho de la tarjeta en dispositivos medianos */
+      }
+    }
+    
+    @media screen and (max-width: 1100px) {
+      .user-card {
+        width: calc(33.33% - 20px); /* Cambia el ancho de la tarjeta en dispositivos pequeños */
+      }
+    }
+    
+    @media screen and (max-width: 900px) {
+      .user-card {
+        width: calc(50% - 20px); /* Cambia el ancho de la tarjeta en dispositivos extra pequeños */
+      }
+    }
+    
+    @media screen and (max-width: 700px) {
+      .user-card {
+        width: calc(100% - 20px); /* Cambia el ancho de la tarjeta en dispositivos muy pequeños */
+      }
+    }

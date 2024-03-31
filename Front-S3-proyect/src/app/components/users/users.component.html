@@ -1,0 +1,177 @@
+<app-header></app-header>
+
+<div class="content">
+    <button class="btn-create" (click)="openCreateMenu()">Create user</button>
+    <div class="container" [class.dark-background]="isUpdateUserMenuOpen || isCreateUserMenuOpen">
+        <div *ngFor="let user of users" class="user-card">
+            <div class="info">
+                <div class="user-image-container">
+                    <img [src]="user.imageUrl || imageUrl" alt="user image" class="user-image" />
+                </div>
+                <p class="id">{{ user.id }}</p>
+                <h2>{{ user.name }}</h2>
+                <p>{{ user.email }}</p>
+                <p>{{ user.username }}</p>
+                <p>{{ user.age }} years</p>
+                <p>{{ user.role }}</p>
+            </div>
+            <div class="btn-container">
+                <button class="btn-update" (click)="openUpdateMenu(user)">Update</button>
+                <button class="btn-delete" (click)="deleteUser(user)">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Menú lateral -->
+<div class="menu">
+    <div class="content-menu">
+        <h3>{{ isCreateUserMenuOpen ? 'Create user' : 'Update user' }}</h3>
+        <button class="btn-close" (click)="closeMenu()">
+            <i class="ri-close-line"></i>
+        </button>
+
+        <div class="photo-menu">
+            <div class="user-image-container">
+                <img [src]="currentUser.imageUrl || imageUrl" alt="user image" class="user-image" />
+            </div>    
+        </div>
+        
+        <div class="file-container" *ngIf="!file" (click)="triggerFileInput.click()" (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave($event)" (drop)="onDropFile($event)">
+            <input #triggerFileInput type="file" class="file" accept=".jpg" style="display: none"
+                (change)="getFile($event)" />
+            <i class="ri-upload-2-line"></i>
+            <p class="placeholder-text">Drag an image here to upload or click to select from your device</p>
+        </div>
+
+        <div *ngIf="file">
+            <div class="file-container">
+                <i class="ri-file-image-line"></i>
+                <p class="placeholder-text">{{ file.name }}</p>
+            </div>
+            <button class="btn-clear" (click)="file = undefined">clear file</button>
+        </div>
+
+        <!-- Error message for unsupported file type -->
+        <div *ngIf="dragError" class="error-message">
+            Only .jpg files are allowed
+        </div>
+
+        <!-- Formulario para crear usuario -->
+        <form #CreateForm="ngForm" *ngIf="isCreateUserMenuOpen" (submit)="createUser()">
+
+            <div *ngIf="isCreateUserMenuOpen">
+                <p class="title-field">Name</p>
+                <input class="input-field" type="text" 
+                    id="newUserName" [(ngModel)]="newUser.name" 
+                    name="newUserName"
+                    required  minlength="3"
+                >
+                <div *ngIf="CreateForm.controls['newUserName']?.invalid && (CreateForm.controls['newUserName'].dirty || CreateForm.controls['newUserName'].touched)">
+                    <p class="error-message">Name must be 3 characters or more.</p>
+                </div>
+            </div>
+
+            <div *ngIf="isCreateUserMenuOpen">
+                <p class="title-field">Username</p>
+                <input class="input-field" type="text" 
+                id="username" [(ngModel)]="newUser.username" name="username"
+                required minlength="4"
+                >
+                <div *ngIf="CreateForm.controls['username'].errors?.['required'] && (CreateForm.controls['username'].dirty || CreateForm.controls['username'].touched)">
+                    <p class="error-message">Username is required.</p>
+                </div>
+                <div *ngIf="CreateForm.controls['username'].errors?.['minlength'] && (CreateForm.controls['username'].dirty || CreateForm.controls['username'].touched)">
+                    <p class="error-message">Username must be 4 characters or more.</p>
+                </div>
+            </div>
+
+            <div *ngIf="isCreateUserMenuOpen">
+                <p class="title-field">Password</p>
+                <input class="input-field" type="text" id="password" [(ngModel)]="newUser.password" name="password"
+                required minlength="8"
+                >
+                <div *ngIf="CreateForm.controls['password'].errors?.['required'] && (CreateForm.controls['password'].dirty || CreateForm.controls['password'].touched)">
+                    <p class="error-message">Password is required.</p>
+                </div>
+                <div *ngIf="CreateForm.controls['password'].errors?.['minlength'] && (CreateForm.controls['password'].dirty || CreateForm.controls['password'].touched)">
+                    <p class="error-message">Password must be 8 characters or more.</p>
+                </div>
+            </div>
+            
+            <div *ngIf="isCreateUserMenuOpen">
+                <p class="title-field">Email Address</p>
+                <input class="input-field" type="text" 
+                    id="newUserEmail" [(ngModel)]="newUser.email" 
+                    name="newUserEmail" 
+                    required email
+                >
+                <div *ngIf="CreateForm.controls['newUserEmail'].errors?.['required'] && (CreateForm.controls['newUserEmail'].dirty || CreateForm.controls['newUserEmail'].touched)">
+                    <p class="error-message">Email is required.</p>
+                </div>
+                <div *ngIf="CreateForm.controls['newUserEmail'].errors?.['email'] && (CreateForm.controls['newUserEmail'].dirty || CreateForm.controls['newUserEmail'].touched)">
+                    <p class="error-message">Email must be in a valid format.</p>
+                </div>
+            </div>
+            
+            <div *ngIf="isCreateUserMenuOpen">
+                <p class="title-field">Age:</p>
+                <input class="input-field" type="number"  
+                    id="newUserAge" [(ngModel)]="newUser.age" 
+                    name="newUserAge"
+                    required min="18"
+                >
+                <div *ngIf="CreateForm.controls['newUserAge'].errors?.['required'] && (CreateForm.controls['newUserAge'].dirty || CreateForm.controls['newUserAge'].touched)">
+                    <p class="error-message">Age is required.</p>
+                </div>
+                <div *ngIf="CreateForm.controls['newUserAge'].errors?.['min'] && (CreateForm.controls['newUserAge'].dirty || CreateForm.controls['newUserAge'].touched)">
+                    <p class="error-message">Minimum age allowed is 18 years.</p>
+                </div>
+            </div>
+            <button type="submit" [disabled]="!CreateForm.form.valid">Submit</button>
+        </form>
+
+        <!-- Formulario para actualizar usuario -->
+        <form #UpdateForm="ngForm" *ngIf="!isCreateUserMenuOpen" (submit)="isAnyFieldCompleted() && updateUser()">
+            <div>
+                <p class="title-field">Name</p>
+                <input class="input-field" type="text" 
+                    [placeholder]="currentUser.name" 
+                    id="currentUserName" [(ngModel)]="name" 
+                    name="currentUserName"
+                    minlength="3"
+                >
+                <div *ngIf="UpdateForm.controls['currentUserName']?.invalid && (UpdateForm.controls['currentUserName'].dirty || UpdateForm.controls['currentUserName'].touched)">
+                    <p class="error-message">Name is required and must be at least 3 characters long.</p>
+                </div>
+            </div>
+            
+            <div>
+                <p class="title-field">Email Address</p>
+                <input class="input-field" type="text" 
+                    [placeholder]="currentUser.email" 
+                    id="currentUserEmail" [(ngModel)]="email" 
+                    name="currentUserEmail" email
+                >
+                <div *ngIf="UpdateForm.controls['currentUserEmail']?.invalid && (UpdateForm.controls['currentUserEmail'].dirty || UpdateForm.controls['currentUserEmail'].touched)">
+                    <p class="error-message">Email must be in a valid format.</p>
+                </div>
+            </div>
+            
+            <div>
+                <p class="title-field">Age:</p>
+                <input class="input-field" type="number" 
+                    [placeholder]="currentUser.age" 
+                    id="currentUserAge" [(ngModel)]="age" 
+                    name="currentUserAge"
+                    min="18"
+                >
+                <div *ngIf="UpdateForm.controls['currentUserAge']?.invalid && (UpdateForm.controls['currentUserAge'].dirty || UpdateForm.controls['currentUserAge'].touched)">
+                    <p class="error-message">Minimum age allowed is 18 years.</p>
+                </div>    
+            </div>
+            <button type="submit" [disabled]="!UpdateForm.form.valid">Submit</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<header>
+    <a href="#" class="logo"><img src="../../../assets/s3.png"><span>S3 Proyect</span></a>
+
+    <ul class="navbar">
+      <li><a *ngIf="isLoggedIn" [routerLink]="'/home/' + username" routerLinkActive="active">Home</a></li>
+      <li><a *ngIf="isLoggedIn" routerLink="/dashboard" routerLinkActive="active">Customers</a></li>
+      <li><a *ngIf="isLoggedIn" [routerLink]="'/profile/' + username" routerLinkActive="active">Profile</a></li>
+      <li><a *ngIf="isLoggedIn" routerLink="/settings" routerLinkActive="active">Settings</a></li>
+  </ul>  
+
+    <div class="main">
+        <ng-container *ngIf="isLoggedIn; else signIn">
+          <a class="user" [routerLink]="'/profile/' + username">
+            <div class="user-image-container">
+              <img [src]="imageUrl" alt="user image" class="user-image" />
+            </div>
+            {{ username }}
+          </a>
+          <a class="user" (click)="logOut()"><i class="ri-door-open-fill"></i></a>
+        </ng-container>
+
+        <ng-template #signIn>
+          <a routerLink="/login" class="user"><i class="ri-account-circle-fill"></i>Sign in</a>
+        </ng-template>
+
+        <div class="bx bx-menu" *ngIf="isLoggedIn" id="menu-icon" (click)="toggleMenu()"></div>
+      </div>
+</header>
