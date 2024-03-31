@@ -4,7 +4,7 @@ Este repositorio contiene el código de una app de gestión de usuarios con imá
 
 ## Tecnologías Utilizadas 🛠️
 
-- **Java - TypeScript**: Lenguajes de programación principal.
+- **Java - TypeScript**: Lenguajes de programación principales.
 - **Spring Boot - Angular**: Frameworks utilizados
 - **MySQL**: Base de datos relacional para almacenar datos de usuarios.
 - **Amazon S3 (Simple Storage Service)**: Almacenamiento en la nube para las imágenes de perfil de los usuarios.
