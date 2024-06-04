@@ -22,10 +22,6 @@ Este repositorio contiene el código de una app de gestión de usuarios con imá
 
 Drag and drop para manejar la actualización o subida de las imágenes de los usuarios al bucket del servicio S3 de AWS.
 
-## Recursos del proyecto 🆘
-
-Proximamente documentación sobre el proyecto en --> https://docs.google.com/document/d/1vnzZ3QvvSO0E0mLggKKMDuPOd4-gq6dBL89URtORbZk/edit#heading=h.dgvsyv2md9f1
-
 ## Video del proyecto:
 
 [https://github.com/Alvarosanchezz3/S3Proyect_Back-End/assets/99328696/826e5abc-0b2e-4daa-846b-9a1f4f084105](https://github.com/Alvarosanchezz3/S3Proyect/assets/99328696/5ba28153-20c8-48fc-9d1f-920178db7c30
